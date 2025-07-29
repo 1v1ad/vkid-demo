@@ -1,3 +1,4 @@
+
 const VKID = window.VKIDSDK;
 
 VKID.Config.init({

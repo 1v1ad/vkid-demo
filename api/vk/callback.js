@@ -34,7 +34,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Устанавливаем cookie user_id как сессию (можно расширить до полноценного session id)
+  // Set cookie session, 1 day, HttpOnly, SameSite
   res.setHeader('Set-Cookie', `session=${data.user_id}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
   res.writeHead(302, { Location: '/lobby.html' });
   res.end();

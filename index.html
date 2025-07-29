@@ -5,9 +5,19 @@
     <title>VK ID One Tap Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>
-      fetch('/api/auth-check').then(r => {
-        if (r.ok) window.location.href = '/lobby.html';
-      });
+      console.log('Запускается fetch /api/auth-check...');
+      fetch('/api/auth-check')
+        .then(r => {
+          console.log('/api/auth-check status:', r.status);
+          if (r.ok) {
+            window.location.href = '/lobby.html';
+          } else {
+            console.log('auth-check не прошёл, рендерим One Tap');
+          }
+        })
+        .catch(err => {
+          console.error('Ошибка запроса /api/auth-check:', err);
+        });
     </script>
   </head>
   <body>

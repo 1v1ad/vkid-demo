@@ -3,7 +3,6 @@ export default async function handler(req, res) {
   const { code } = req.query;
 
   if (!code) {
-    // Если нет кода — возвращаем на главную
     res.writeHead(302, { Location: '/' });
     res.end();
     return;
@@ -27,7 +26,16 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Если авторизация успешна — редиректим на лобби
+  const data = await response.json();
+
+  if (!data.user_id) {
+    res.writeHead(302, { Location: '/' });
+    res.end();
+    return;
+  }
+
+  // Устанавливаем cookie user_id как сессию (можно расширить до полноценного session id)
+  res.setHeader('Set-Cookie', `session=${data.user_id}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
   res.writeHead(302, { Location: '/lobby.html' });
   res.end();
 }

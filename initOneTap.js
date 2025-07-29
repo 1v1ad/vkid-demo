@@ -1,33 +1,34 @@
+if ('VKIDSDK' in window) {
+  const VKID = window.VKIDSDK;
 
-console.log('initOneTap.js стартует');
-function runVKID() {
-  if ('VKIDSDK' in window) {
-    console.log('VKIDSDK найден');
-    VKIDSDK.Config.init({
-      app: 53969710,
-      redirectUrl: 'https://vkid-demo.vercel.app/api/vk/callback',
-      responseMode: VKIDSDK.ConfigResponseMode.Callback,
-      source: VKIDSDK.ConfigSource.LOWCODE
-    });
-    const oneTap = new VKIDSDK.OneTap();
-    console.log('OneTap создан, пытаемся отрендерить');
-    oneTap
-      .render({
-        container: document.getElementById('vkid-container'),
-        showAlternativeLogin: true
+  VKID.Config.init({
+    app: 53969710,
+    redirectUrl: 'https://vkid-demo.vercel.app/api/vk/callback',
+    responseMode: VKID.ConfigResponseMode.Callback,
+    source: VKID.ConfigSource.LOWCODE,
+    scope: '',
+  });
+
+  const oneTap = new VKID.OneTap();
+
+  oneTap.render({
+    container: document.body,
+    showAlternativeLogin: true,
+    oauthList: ['mail_ru']
+  })
+  .on(VKID.WidgetEvents.ERROR, (error) => {
+    console.error("VKIDSDK error:", error);
+  })
+  .on(VKID.OneTapInternalEvents.LOGIN_SUCCESS, (payload) => {
+    const code = payload.code;
+    const deviceId = payload.device_id;
+
+    VKID.Auth.exchangeCode(code, deviceId)
+      .then(() => {
+        window.location.href = "/lobby.html";
       })
-      .on(VKIDSDK.WidgetEvents.ERROR, (e) => {
-        console.error('VK One Tap error', e);
-      })
-      .on(VKIDSDK.OneTapInternalEvents.LOGIN_SUCCESS, ({ code, device_id }) => {
-        console.log('LOGIN_SUCCESS', { code, device_id });
-        if (code && device_id) {
-          window.location.href = `/api/vk/callback?code=${encodeURIComponent(code)}&device_id=${encodeURIComponent(device_id)}`;
-        }
+      .catch((err) => {
+        console.error("Auth exchange error:", err);
       });
-  } else {
-    console.error('VKIDSDK не найден! Ждём...');
-    setTimeout(runVKID, 300);
-  }
+  });
 }
-runVKID();

@@ -1,32 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>VK ID One Tap Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      console.log('Запускается fetch /api/auth-check...');
-      fetch('/api/auth-check')
-        .then(r => {
-          console.log('/api/auth-check status:', r.status);
-          if (r.ok) {
-            window.location.href = '/lobby.html';
-          } else {
-            console.log('auth-check не прошёл, рендерим One Tap');
-          }
-        })
-        .catch(err => {
-          console.error('Ошибка запроса /api/auth-check:', err);
-        });
-    </script>
-    <script type="module">
-      import VKIDSDK from "https://unpkg.com/@vkid/sdk@3/dist/sdk.esm.js";
-      window.VKIDSDK = VKIDSDK;
-    </script>
-  </head>
-  <body>
-    <h1>VK ID One Tap Demo</h1>
-    <div id="vkid-container"></div>
-    <script src="./initOneTap.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>VK ID One Tap Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://unpkg.com/@vkid/sdk@2.6.0"></script>
+  <script src="/initOneTap.js" defer></script>
+</head>
+<body>
+  <h1>VK ID One Tap Demo</h1>
+</body>
 </html>

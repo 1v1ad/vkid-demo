@@ -4,22 +4,19 @@ if ('VKIDSDK' in window) {
   VKID.Config.init({
     app: 53969710,
     redirectUrl: 'https://vkid-demo.vercel.app/api/vk/callback',
-    responseMode: VKID.ConfigResponseMode.Callback,
-    source: VKID.ConfigSource.LOWCODE
+    responseMode: VKID.ConfigResponseMode.Code,
   });
 
   const oneTap = new VKID.OneTap();
+
   oneTap.render({
-    container: document.body,
-    showAlternativeLogin: true
+    container: document.getElementById('vkid-container'),
+    showAlternativeLogin: true,
   })
-  .on(VKID.WidgetEvents.ERROR, function (e) {
-    console.error('VKID error:', e);
+  .on(VKID.WidgetEvents.ERROR, (err) => {
+    console.error('VKID Error:', err);
   })
-  .on(VKID.OneTapInternalEvents.LOGIN_SUCCESS, function (payload) {
-    if (payload && payload.code) {
-      const redirect = 'https://vkid-demo.vercel.app/api/vk/callback?code=' + encodeURIComponent(payload.code);
-      window.location.href = redirect;
-    }
+  .on(VKID.OneTapEvents.CODE_RECEIVED, ({ code }) => {
+    window.location.href = `/api/vk/callback?code=${encodeURIComponent(code)}`;
   });
 }

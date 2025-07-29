@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   const params = new URLSearchParams({
     client_id: "53969710",
     client_secret: "eRgb6bTJPom62dvQTXtE",
-    redirect_uri: "https://pvp-chance.vercel.app/api/vk/callback",
+    redirect_uri: "https://vkid-demo.vercel.app/api/vk/callback",
     code,
   });
 

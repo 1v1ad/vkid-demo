@@ -1,5 +1,11 @@
 import { useEffect, useRef } from "react";
 
+declare global {
+  interface Window {
+    VKIDSDK: any;
+  }
+}
+
 export default function Login() {
   const ref = useRef(null);
 
@@ -12,9 +18,9 @@ export default function Login() {
         window.VKIDSDK.Widget.init({
           container: ref.current,
           app: parseInt(process.env.NEXT_PUBLIC_VK_CLIENT_ID || "0"),
-          callback: function (data) {
+          callback: function (data: any) {
             console.log("VKID →", data);
-            window.location.href = "/lobby"; // перекидываем в лобби
+            window.location.href = "/lobby";
           },
         });
       }

@@ -19,11 +19,14 @@
           console.error('Ошибка запроса /api/auth-check:', err);
         });
     </script>
+    <script type="module">
+      import VKIDSDK from "https://unpkg.com/@vkid/sdk@3/dist/sdk.esm.js";
+      window.VKIDSDK = VKIDSDK;
+    </script>
   </head>
   <body>
     <h1>VK ID One Tap Demo</h1>
     <div id="vkid-container"></div>
-    <script src="https://unpkg.com/@vkid/sdk@3/dist/sdk.umd.min.js"></script>
     <script src="./initOneTap.js"></script>
   </body>
 </html>

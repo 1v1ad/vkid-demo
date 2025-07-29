@@ -1,4 +1,3 @@
-
 if ('VKIDSDK' in window) {
   const VKID = window.VKIDSDK;
 
@@ -6,18 +5,21 @@ if ('VKIDSDK' in window) {
     app: 53969710,
     redirectUrl: 'https://pvp-chance.vercel.app/api/vk/callback',
     responseMode: VKID.ConfigResponseMode.Callback,
-    source: VKID.ConfigSource.LOWCODE,
-    scope: ''
+    source: VKID.ConfigSource.LOWCODE
   });
 
   const oneTap = new VKID.OneTap();
   oneTap.render({
-    container: document.getElementById('vk_button'),
+    container: document.body,
     showAlternativeLogin: true
   })
-  .on(VKID.WidgetEvents.ERROR, console.error)
-  .on(VKID.OneTapInternalEvents.LOGIN_SUCCESS, (payload) => {
-    console.log('VKID code:', payload.code);
-    window.location.href = `/api/vk/callback?code=${payload.code}`;
+  .on(VKID.WidgetEvents.ERROR, function (e) {
+    console.error('VKID error:', e);
+  })
+  .on(VKID.OneTapInternalEvents.LOGIN_SUCCESS, function (payload) {
+    if (payload && payload.code) {
+      const redirect = 'https://pvp-chance.vercel.app/api/vk/callback?code=' + encodeURIComponent(payload.code);
+      window.location.href = redirect;
+    }
   });
 }

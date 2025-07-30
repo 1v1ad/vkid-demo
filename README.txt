@@ -1,1 +1,0 @@
-Проект VKID Demo для деплоя на Vercel

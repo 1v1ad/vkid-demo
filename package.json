@@ -16,7 +16,4 @@
     "@types/react": "^18.2.41",
     "@types/node": "^20.6.2"
   },
-  "next": {
-    "output": "export"
-  }
 }

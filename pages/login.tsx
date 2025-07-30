@@ -1,3 +1,10 @@
+import React from "react";
+
 export default function Login() {
-  return <h1>Страница входа</h1>;
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>Login Page</h1>
+      <p>Авторизация через VK ID...</p>
+    </div>
+  );
 }

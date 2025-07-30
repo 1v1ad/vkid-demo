@@ -1,0 +1,1 @@
+VK One Tap Next.js demo.

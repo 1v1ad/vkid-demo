@@ -1,5 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  res.status(200).json({ status: "Auth check OK" });
+// API-заглушка для проверки авторизации
+export default function handler(req, res) {
+  res.status(200).json({ ok: true });
 }

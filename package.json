@@ -9,13 +9,6 @@
   "dependencies": {
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "axios": "^1.6.8",
-    "jsonwebtoken": "^9.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.3.3",
-    "@types/react": "^18.2.14",
-    "@types/node": "^20.5.9"
+    "react-dom": "latest"
   }
 }
